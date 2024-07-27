@@ -1,4 +1,4 @@
-from domain.dto.recommendation_by_category_dto import RecommendationByCategoryDTO
+from domain.dto.recommendation_by_nearby_dto import RecommendationByNearbyDTO
 from domain.dto.recommendation_by_prompt_dto import RecommendationByPromptDTO
 from domain.usecases.grabbie_ucase_impl import GrabbieUcaseImpl
 from infra.openapi.adapter.open_api_adapter import OpenAPIAdapter
@@ -23,7 +23,7 @@ def test_grabbie_ucase_by_category(open_api_config: OpenAPIConfig):
             open_api_config=open_api_config
         )
     )
-    result = grabbie.recommendation_by_category(RecommendationByCategoryDTO(
+    result = grabbie.recommendation_by_nearby(RecommendationByNearbyDTO(
         current_location="Blok M",
         category="Museum"
     ))

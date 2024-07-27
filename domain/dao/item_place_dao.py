@@ -10,6 +10,8 @@ class ItemPlaceDAO(BaseModel):
     rating: float
     max_rating: int
     review: str
+    minimum_price: int
+    maximum_price: int
 
 
 class ListItemPlaceDAO(List[ItemPlaceDAO]):

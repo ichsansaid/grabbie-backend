@@ -1,10 +1,11 @@
 import json
+import re
 from dataclasses import dataclass
 
 from domain.contracts.grabbie_ucase_contract import GrabbieUcaseContract
 from domain.contracts.open_api_contract import OpenAPIContract
 from domain.dao.item_place_dao import ListItemPlaceDAO, ItemPlaceDAO
-from domain.dto.recommendation_by_category_dto import RecommendationByCategoryDTO
+from domain.dto.recommendation_by_nearby_dto import RecommendationByNearbyDTO
 from domain.dto.recommendation_by_prompt_dto import RecommendationByPromptDTO
 
 
@@ -12,7 +13,7 @@ from domain.dto.recommendation_by_prompt_dto import RecommendationByPromptDTO
 class GrabbieUcaseImpl(GrabbieUcaseContract):
     open_api: OpenAPIContract
 
-    def recommendation_by_category(self, dto: RecommendationByCategoryDTO) -> ListItemPlaceDAO:
+    def recommendation_by_nearby(self, dto: RecommendationByNearbyDTO) -> ListItemPlaceDAO:
         attrs = list(ItemPlaceDAO.model_fields.keys())
         response = self.open_api.prompting([
             {
@@ -30,7 +31,13 @@ class GrabbieUcaseImpl(GrabbieUcaseContract):
                 'content': f'Find nearby places around {dto.current_location} with the given category: {dto.category}'
             }
         ])
-        result = ListItemPlaceDAO.model_validate(response.replace("```json", "").replace("\n```", ""))
+        pattern = r'```json(.*?)```'
+        matches = re.findall(pattern, response, re.DOTALL)
+        if matches:
+            response = matches[0].strip()
+        else:
+            raise Exception("Parsing prompt error")
+        result = ListItemPlaceDAO.model_validate(response)
         return result
 
     def recommendation_by_prompt(self, dto: RecommendationByPromptDTO) -> ListItemPlaceDAO:
@@ -51,5 +58,11 @@ class GrabbieUcaseImpl(GrabbieUcaseContract):
                 'content': dto.user_prompt
             }
         ])
-        result = ListItemPlaceDAO.model_validate(response.replace("```json", "").replace("\n```", ""))
+        pattern = r'```json(.*?)```'
+        matches = re.findall(pattern, response, re.DOTALL)
+        if matches:
+            response = matches[0].strip()
+        else:
+            raise Exception("Parsing prompt error")
+        result = ListItemPlaceDAO.model_validate(response)
         return result
