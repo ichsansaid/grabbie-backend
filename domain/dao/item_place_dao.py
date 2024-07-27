@@ -1,4 +1,5 @@
-from typing import List
+import json
+from typing import List, Self
 
 from pydantic import BaseModel
 
@@ -12,4 +13,11 @@ class ItemPlaceDAO(BaseModel):
 
 
 class ListItemPlaceDAO(List[ItemPlaceDAO]):
-    pass
+    @classmethod
+    def model_validate(cls, value: str) -> Self:
+        result: Self = []
+        if isinstance(value, str):
+            obj = json.loads(value)
+            for o in obj:
+                result.append(ItemPlaceDAO.model_validate(o))
+        return result
