@@ -30,7 +30,7 @@ class GrabbieUcaseImpl(GrabbieUcaseContract):
                 'content': f'Find nearby places around {dto.current_location} with the given category: {dto.category}'
             }
         ])
-        result = ListItemPlaceDAO.model_validate(response)
+        result = ListItemPlaceDAO.model_validate(response.replace("```json", "").replace("\n```", ""))
         return result
 
     def recommendation_by_prompt(self, dto: RecommendationByPromptDTO) -> ListItemPlaceDAO:
@@ -44,12 +44,12 @@ class GrabbieUcaseImpl(GrabbieUcaseContract):
             },
             {
                 'role': 'system',
-                'content': f'You need to provide the data with JSON Format with fields: {", ".join(attrs)}'
+                'content': f'You need to provide the data with JSON with Fields: {", ".join(attrs)}'
             },
             {
                 'role': 'user',
                 'content': dto.user_prompt
             }
         ])
-        result = ListItemPlaceDAO.model_validate(response)
+        result = ListItemPlaceDAO.model_validate(response.replace("```json", "").replace("\n```", ""))
         return result

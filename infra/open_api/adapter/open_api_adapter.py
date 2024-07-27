@@ -13,6 +13,7 @@ class OpenAPIAdapter(OpenAPIContract):
 
     def prompting(self, messages: List) -> str:
         response = openai.ChatCompletion.create(
+            api_key=self.open_api_config.api_key,
             messages=messages,
             model=self.open_api_config.model,
             max_tokens=2500,
