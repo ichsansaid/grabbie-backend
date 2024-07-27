@@ -1,5 +1,5 @@
 from domain.usecases import test_grabbie_ucase_impl
-from infra.open_api.config.open_api_config import OpenAPIConfig
+from infra.openapi.config.open_api_config import OpenAPIConfig
 
 open_api = OpenAPIConfig(
     _env_file='.env',

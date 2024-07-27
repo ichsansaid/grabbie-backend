@@ -1,8 +1,8 @@
 from domain.dto.recommendation_by_category_dto import RecommendationByCategoryDTO
 from domain.dto.recommendation_by_prompt_dto import RecommendationByPromptDTO
 from domain.usecases.grabbie_ucase_impl import GrabbieUcaseImpl
-from infra.open_api.adapter.open_api_adapter import OpenAPIAdapter
-from infra.open_api.config.open_api_config import OpenAPIConfig
+from infra.openapi.adapter.open_api_adapter import OpenAPIAdapter
+from infra.openapi.config.open_api_config import OpenAPIConfig
 
 
 def test_grabbie_ucase_by_prompt(open_api_config: OpenAPIConfig):

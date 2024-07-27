@@ -4,7 +4,7 @@ from typing import List
 import openai
 
 from domain.contracts.open_api_contract import OpenAPIContract
-from infra.open_api.config.open_api_config import OpenAPIConfig
+from infra.openapi.config.open_api_config import OpenAPIConfig
 
 
 @dataclass
