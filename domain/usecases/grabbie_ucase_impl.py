@@ -24,7 +24,7 @@ class GrabbieUcaseImpl(GrabbieUcaseContract):
             },
             {
                 'role': 'system',
-                'content': f'You need to provide the data with JSON Format with fields: {", ".join(attrs)}'
+                'content': f'You need to provide the data with JSON Format with fields: {", ".join(attrs)}, and if there is a field like price u need to provide it, dont varies.'
             },
             {
                 'role': 'user',

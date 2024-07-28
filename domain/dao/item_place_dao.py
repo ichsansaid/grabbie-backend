@@ -1,17 +1,16 @@
 import json
-from typing import List, Self
+from typing import List, Self, Optional
 
 from pydantic import BaseModel
 
 
 class ItemPlaceDAO(BaseModel):
-    place_name: str
+    name: str
     category: str
     rating: float
-    max_rating: int
     review: str
-    minimum_price: int
-    maximum_price: int
+    starting_price: Optional[str]
+    image_url: str
 
 
 class ListItemPlaceDAO(List[ItemPlaceDAO]):
